@@ -10,12 +10,11 @@ router.get('/',(req,res)=>{
 
 
 // insert new book category
-router.post('/'/*/':cat_code&:cat_type'*/,(req,res)=>{
+router.post('/',(req,res)=>{
     if(req.body.cat_code=="" || req.body.cat_type==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank") 
         return;
-    }
-    //mysqlconnection.query(`INSERT INTO book_category_master VALUES("${req.params.cat_code}","${req.params.cat_type}")`,(err,rows,fields)=>{
+    }    
     mysqlconnection.query(`INSERT INTO book_category_master VALUES("${req.body.cat_code}","${req.body.cat_type}")`,(err,rows,fields)=>{    
         if(!err){
             console.log(`Inserted new category ${req.body.cat_type}`)    
@@ -30,8 +29,7 @@ router.post('/'/*/':cat_code&:cat_type'*/,(req,res)=>{
 
 
 // delete book category according to category code
-router.post('/deletecategory'/*/:cat_code'*/,(req,res)=>{
-    //mysqlconnection.query(`DELETE FROM book_category_master WHERE cat_code="${req.params.cat_code}"`,(err,rows,fields)=>{
+router.post('/deletecategory',(req,res)=>{    
     mysqlconnection.query(`DELETE FROM book_category_master WHERE cat_code="${req.body.cat_code}"`,(err,rows,fields)=>{        
         if(!err){
             console.log(`Deleted category with code ${req.body.cat_code}`)
@@ -108,7 +106,7 @@ const redirecttoindexwitherror = (res,errorobj,errmsg) => {
             console.log(rows)
             const params = {
                 bookcategories:rows,
-                errorMessage:errmsg//JSON.stringify(errorobj,undefined,2)    
+                errorMessage:errmsg   
             }
             res.render("bookcategory/index",params)     
         }else{

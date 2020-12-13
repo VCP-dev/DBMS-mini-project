@@ -10,18 +10,16 @@ router.get('/',(req,res)=>{
 
 
 // insert new member
-router.post('/'/*/:member_code&:member_fname&:member_lname'*/,(req,res)=>{
+router.post('/',(req,res)=>{
     if(req.body.member_code=="" || req.body.member_fname=="" || req.body.member_lname==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;  
-      }
-    //let sqlquery = `INSERT INTO member_master VALUES("${req.params.member_code}","${req.params.member_fname}","${req.params.member_lname}");`;
+      }    
     let sqlquery = `INSERT INTO member_master VALUES("${req.body.member_code}","${req.body.member_fname}","${req.body.member_lname}");`;
     mysqlconnection.query(sqlquery,(err,rows,fields)=>{
         if(!err){    
             console.log(`Inserted data for ${req.body.member_fname}`)
-            redirecttoindexpage(res)
-            //console.log(rows)    
+            redirecttoindexpage(res)     
         }else{
             redirecttoindexwitherror(res,err,errmsgtype(err))
             console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
@@ -31,14 +29,12 @@ router.post('/'/*/:member_code&:member_fname&:member_lname'*/,(req,res)=>{
 
 
 // delete a member
-router.post('/deletemember'/*/:member_code'*/,(req,res)=>{
-    //let sqlquery = `DELETE FROM member_master WHERE member_code="${req.params.member_code}";`
+router.post('/deletemember',(req,res)=>{    
     let sqlquery = `DELETE FROM member_master WHERE member_code="${req.body.member_code}";`
     mysqlconnection.query(sqlquery,(err,rows,fields)=>{
         if(!err){
             console.log(`Deleted data for member with id ${req.body.member_code}`)
-            redirecttoindexpage(res)
-            //console.log(rows)    
+            redirecttoindexpage(res)     
         }else{
             redirecttoindexwitherror(res,err,errmsgtype(err))
             console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
@@ -112,7 +108,7 @@ const redirecttoindexwitherror = (res,errorobj,errmsg) => {
             console.log(rows)
             const params = {
                 members:rows,
-                errorMessage:errmsg//JSON.stringify(errorobj,undefined,2)    
+                errorMessage:errmsg  
             }
             res.render("member/index",params)    
         }else{

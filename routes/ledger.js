@@ -9,11 +9,10 @@ router.get('/',(req,res)=>{
 })
 
 
-// the " issue date " is passed as the " return date "
+// the " issue date " is passed as the " return date " for now
 
 // insert book into a ledger
-router.post('/'/*/:book_code&:member_code&:issue_date&:due_date&:ret_date'*/,(req,res)=>{
-    //let mysqlquery = `INSERT INTO ledger VALUES("${req.params.book_code}","${req.params.member_code}","${req.params.issue_date}","${req.params.due_date}","${req.params.ret_date}")`
+router.post('/',(req,res)=>{    
     if(req.body.issue_date=="" || req.body.due_date==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;  
@@ -32,8 +31,7 @@ router.post('/'/*/:book_code&:member_code&:issue_date&:due_date&:ret_date'*/,(re
 
 
 // delete book from ledger
-router.post('/delete'/*/:book_code'*/,(req,res)=>{
-    //let mysqlquery = `DELETE FROM ledger WHERE book_code="${req.params.book_code}"`
+router.post('/delete',(req,res)=>{    
     let mysqlquery = `DELETE FROM ledger WHERE book_code="${req.body.book_code}"`
     mysqlconnection.query(mysqlquery,(err,rows,fields)=>{
         if(!err){
@@ -48,8 +46,7 @@ router.post('/delete'/*/:book_code'*/,(req,res)=>{
 
 
 // update return date
-router.put('/retdate'/*/:book_code&:ret_date'*/,(req,res)=>{
-    //let mysqlquery = `UPDATE ledger SET ret_date="${req.params.ret_date}" WHERE book_code="${req.params.book_code}"`
+router.put('/retdate',(req,res)=>{    
     let mysqlquery = `UPDATE ledger SET ret_date="${req.body.ret_date}" WHERE book_code="${req.body.book_code}"`
     mysqlconnection.query(mysqlquery,(err,rows,fields)=>{
         if(!err){
@@ -66,26 +63,13 @@ router.post('/search',(req,res)=>{
     if(req.body.member_code==""){    
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;
-    }
-    //let bookquery = 'SELECT * from book_master where book_master.book_code NOT IN (select book_code from ledger);'
+    }    
     let memberquery = 'SELECT * FROM member_master'
     let booklist = null
     let memberlist = null
     let sqlquery = `SELECT * FROM ledger where member_code="${req.body.member_code}";`
-   // mysqlconnection.query(sqlquery,(err,rows,fields)=>{
-        /*if(!err){    
-            const params = {
-                books:(rows.length>0)?rows:null,
-                errorMessage:(rows.length>0)?null:"No books issued in that member's name"
-            }
-            res.render("ledger/index",params)
-        }else{
-            redirecttoindexwitherror(res,err,errmsgtype(err))
-            console.log("ERROR : \n"+JSON.stringify(err,undefined,2)); 
-        }*/
         mysqlconnection.query(sqlquery,(ledgererr,ledgerrows,fields)=>{
-            if(!ledgererr){
-                //booklist = ledgerrows   
+            if(!ledgererr){    
                 booklist = bookformat(ledgerrows) 
                 mysqlconnection.query(memberquery,(err,rows,fields)=>{
                     if(!err){
@@ -106,8 +90,7 @@ router.post('/search',(req,res)=>{
             }else{
                 console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
             }
-        })  
-    //})
+        })    
 })
 
 
@@ -124,13 +107,8 @@ const checknumberofbooksissued = (booklist) => {
 // redirect to index page
 const redirecttoindexpage = (res) => {   
     let mysqlquery = "SELECT * FROM ledger"
-    mysqlconnection.query(mysqlquery,(ledgererr,ledgerrows/*err,rows*/,fields)=>{
-        if(!ledgererr/*!err*/){
-            /*console.log("Retrieved all Books in ledger")
-            const params = {
-                ledgercontent:rows
-            }    
-            res.render("ledger/index",params)*/
+    mysqlconnection.query(mysqlquery,(ledgererr,ledgerrows,fields)=>{
+        if(!ledgererr){    
             let bookquery = 'SELECT * from book_master where book_master.book_code NOT IN (select book_code from ledger);'
             let memberquery = 'SELECT * FROM member_master'
             let booklist = null
@@ -174,19 +152,13 @@ const checkbookavailability = (booklist) => {
 // Redirect to index with error message
 const redirecttoindexwitherror = (res,errorobj,errmsg) => {
     mysqlconnection.query('SELECT * FROM ledger',(ledgererr,ledgerrows,fields)=>{
-        if(!ledgererr/*!err*/){
-            /*console.log("Retrieved all Books in ledger")
-            const params = {
-                ledgercontent:rows
-            }    
-            res.render("ledger/index",params)*/
+        if(!ledgererr){    
             let bookquery = 'SELECT * from book_master where book_master.book_code NOT IN (select book_code from ledger);'
             let memberquery = 'SELECT * FROM member_master'
             let booklist = null
             let memberlist = null
             mysqlconnection.query(bookquery,(err,rows,fields)=>{
-                if(!err){
-                    //booklist = rows 
+                if(!err){   
                     booklist = bookformat(rows)   
                     mysqlconnection.query(memberquery,(err,rows,fields)=>{
                         if(!err){

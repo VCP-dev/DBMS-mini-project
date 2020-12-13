@@ -10,12 +10,11 @@ router.get('/',(req,res)=>{
 
 
 // insert a new author
-router.post('/'/*:author_code&:author_fname&:author_lname'*/,(req,res)=>{
+router.post('/',(req,res)=>{
     if(req.body.author_code=="" || req.body.author_fname=="" || req.body.author_lname==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;  
-      }
-    //mysqlconnection.query(`INSERT INTO author_master VALUES ("${req.params.author_code}","${req.params.author_fname}","${req.params.author_lname}")`,(err,rows,fields)=>{
+      }    
     mysqlconnection.query(`INSERT INTO author_master VALUES ("${req.body.author_code}","${req.body.author_fname}","${req.body.author_lname}")`,(err,rows,fields)=>{    
         if(!err){    
             console.log(`Inserted record for ${req.body.author_fname} ${req.body.author_lname}`)
@@ -30,12 +29,10 @@ router.post('/'/*:author_code&:author_fname&:author_lname'*/,(req,res)=>{
 
 
 // delete according to author code
-router.post('/delete'/*/:authorcode'*/,(req,res)=>{
-    //mysqlconnection.query(`DELETE FROM author_master WHERE author_code="${req.params.authorcode}"`,(err,rows,fields)=>{
+router.post('/delete',(req,res)=>{    
     mysqlconnection.query(`DELETE FROM author_master WHERE author_code="${req.body.author_code}"`,(err,rows,fields)=>{    
         if(!err){
             console.log(`Author of code ${req.body.authorcode} was deleted`)
-            //console.log(rows)    
             redirecttoindex(res)
         }else{
             redirecttoindexwitherror(res,err,errmsgtype(err))
@@ -111,7 +108,7 @@ const redirecttoindexwitherror = (res,errorobj,errmsg) => {
             console.log(rows)
             const params = {
                 authors:rows,
-                errorMessage:errmsg//JSON.stringify(errorobj,undefined,2)    
+                errorMessage:errmsg    
             }
             res.render("author/index",params)     
         }else{

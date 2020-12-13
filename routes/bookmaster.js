@@ -11,8 +11,7 @@ router.get('/',(req,res)=>{
 
 
 // get a book by its' code
-router.get('/'/*:book_code'*/,(req,res)=>{    
-    //mysqlconnection.query('SELECT * FROM book_master WHERE book_code=?',[req.params.bookcode],(err,rows,fields)=>{
+router.get('/',(req,res)=>{    
     mysqlconnection.query('SELECT * FROM book_master WHERE book_code=?',[req.body.book_code],(err,rows,fields)=>{    
         if(!err){
             console.log("Searched for a book by it's code")
@@ -25,8 +24,7 @@ router.get('/'/*:book_code'*/,(req,res)=>{
 
 
 // get a book by its' name
-router.get('/'/*:book_name'*/,(req,res)=>{
-    //mysqlconnection.query('SELECT * FROM book_master WHERE book_name=?',[req.params.bookname],(err,rows,fields)=>{
+router.get('/',(req,res)=>{   
     mysqlconnection.query('SELECT * FROM book_master WHERE book_name=?',[req.body.book_name],(err,rows,fields)=>{    
         if(!err){
             console.log("Searched for a book by it's name")
@@ -40,8 +38,7 @@ router.get('/'/*:book_name'*/,(req,res)=>{
 
 
 // delete a book by its' book code
-router.post('/delete'/*/:book_code'*/,(req,res)=>{
-    //mysqlconnection.query('DELETE FROM book_master WHERE book_code=?',[req.params.book_code],(err,rows,fields)=>{
+router.post('/delete',(req,res)=>{   
     mysqlconnection.query('DELETE FROM book_master WHERE book_code=?',[req.body.book_code],(err,rows,fields)=>{    
         if(!err){
             console.log(`Deleted a book of code ${req.body.book_code}`)
@@ -56,8 +53,7 @@ router.post('/delete'/*/:book_code'*/,(req,res)=>{
 
 
 // insert a new book
-router.post('/'/*/:cat_code&:book_code&:author_code&:book_name&:publisher&:language_used'*/,(req,res)=>{
-    //let sqlquery = `INSERT INTO book_master VALUES ("${req.params.cat_code}","${req.params.book_code}","${req.params.author_code}","${req.params.book_name}","${req.params.publisher}","${req.params.language_used}");`
+router.post('/',(req,res)=>{    
     if(req.body.cat_code=="" || req.body.book_code=="" || req.body.author_code=="" || req.body.book_name=="" || req.body.publisher=="" || req.body.language_used==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;
@@ -77,8 +73,7 @@ router.post('/'/*/:cat_code&:book_code&:author_code&:book_name&:publisher&:langu
 
 
 // Update a book by its' book code
-router.post('/update'/*/:cat_code&:book_code&:author_code&:book_name&:publisher&:language_used'*/,(req,res)=>{
-    //let sqlquery = `UPDATE book_master SET cat_code="${req.params.cat_code}",author_code="${req.params.author_code}",book_name="${req.params.book_name}",publisher="${req.params.publisher}",language_used="${req.params.language_used}" WHERE book_code="${req.params.book_code}"`
+router.post('/update',(req,res)=>{    
     if(req.body.new_book_name=="" || req.body.new_publisher=="" || req.body.new_language_used==""){
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;
@@ -87,8 +82,7 @@ router.post('/update'/*/:cat_code&:book_code&:author_code&:book_name&:publisher&
     mysqlconnection.query(sqlquery,[req.body.book_name],(err,rows,fields)=>{
         if(!err){
             console.log(`Updated book with code : ${req.body.book_code}`)
-            redirecttoindexpage(res)
-            //console.log(rows)    
+            redirecttoindexpage(res)        
         }else{
             redirecttoindexwitherror(res,err,errmsgtype(err))
             console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
@@ -143,7 +137,7 @@ const redirecttoindexwitherror = (res,errorobj,errmsg) => {
             console.log(rows)
             const params = {
                 books:rows,
-                errorMessage:errmsg//JSON.stringify(errorobj,undefined,2)    
+                errorMessage:errmsg   
             }
             res.render("book/index",params)     
         }else{
