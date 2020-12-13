@@ -1,0 +1,97 @@
+<div class="page">
+    <div class="form-data">
+    <form action="/ledger" method="POST" class="form-data-entry">
+        <div>
+            <label>Member name and id</label>
+            <!--<input type="text" name="member_code">-->
+            <select name="member_code">
+
+                <% for(var i=0;i<members.length;i++) { %>
+                    <option label="<%= members[i].member_fname+" - "+members[i].member_code %>" value="<%= members[i].member_code %>">
+                <% } %>
+
+            </select>
+        </div>
+        <div>
+            <label>Book name</label>
+            <!--<input type="text" name="book_code">-->
+            <select name="book_code">
+                
+                <% if(books!=null) { %>
+                <% for(var i=0;i<books.length;i++) { %>
+                    <option label="<%= books[i].book_name %>" value="<%= books[i].book_code %>">
+                <%  } %>
+                <% } else { %>                
+                    <option label="No books available" value="No books available">
+                <% } %>    
+
+            </select>
+        </div>        
+        <div>
+            <label>Issue date</label>
+            <input type="text" name="issue_date" size="11" maxlength="10">
+        </div>
+        <div>
+            <label>Due date</label>
+            <input type="text" name="due_date" size="11" maxlength="10">
+        </div>        
+        <button type="submit">Issue book</button>    
+    </form>
+    <form action="/ledger/search" method="POST" class="form-data-entry">
+        <div>
+            <label>Member name and id</label>
+            <!--<input type="text" name="member_code">-->
+            <select name="member_code">
+
+                <% for(var i=0;i<members.length;i++) { %>
+                    <option label="<%= members[i].member_fname+" "+members[i].member_lname+" - "+members[i].member_code %>" value="<%= members[i].member_code %>">
+                <% } %>
+
+            </select>
+        </div>        
+        <button type="submit">Search Member</button>
+    </form>
+    <br>
+    </div>
+
+    <div class="form-data">
+        <br>
+        <% if(locals.errorMessage != null) { %>
+            <div class="form-data-entry" style="color: red;"><%= errorMessage %></div>
+         <% } %>
+    </div>
+
+    <hr/>
+
+    <div class="postbackground">
+    <% if(ledgercontent!=null) { %> 
+    <% ledgercontent.forEach(book => { %>
+    <div class="container" id="deleteandupdate">    
+        <form action="/ledger/delete" method="POST" class="formclass">
+            <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
+            <div>Book code: <%= book.book_code %> </div>
+            <div>Member code: <%= book.member_code %> </div>
+            <div>Issue date: <%= book.issue_date %> </div>
+            <div>Due date: <%= book.due_date %> </div>
+            <!--<div>Return date: <%= book.ret_date %> </div>-->
+            <button type="submit">Return book</button>
+        </form>  
+        <div class="form-data-entry">            
+            <div>    
+                <br>
+                <br>   
+                <% let today = new Date() %>
+                <% let returndate = new Date(book.due_date) %>        
+                <% if(today>returndate) { %>
+                    <div style="color: red;font-size: 23px;">Overdue to be returned !!!</div>
+                <% } else { %>
+                    <div style="font-size: 18px;">Not returned yet...</div>
+                <% } %>        
+            </div>           
+        </div>      
+        <br>
+    </div>    
+    <% }) %>
+    <% } %>
+    </div>    
+</div>

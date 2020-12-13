@@ -1,0 +1,61 @@
+<div class="page">
+    <div class="form-data">
+    <form action="/authors" method="POST" class="form-data-entry">
+        <div>
+            <label>Author id</label>
+            <input type="text" name="author_code" maxlength="5" size="5">
+        </div>
+        <div>
+            <label>Author first name</label>
+            <input type="text" name="author_fname" size="17" maxlength="15">
+        </div>  
+        <div>
+            <label>Author last name</label>
+            <input type="text" name="author_lname" size="17" maxlength="15">
+        </div>  
+        <button type="submit">Create Author</button>    
+    </form>
+    <form action="/authors/search" method="POST" class="form-data-entry">
+        <div>
+            <label>Author id</label>
+            <input type="text" name="author_code" maxlength="5" size="5">
+        </div>        
+        <button type="submit">Search Author</button>    
+    </form>
+    <br>
+    </div>
+    
+    <div class="form-data">
+        <br>
+        <% if(locals.errorMessage != null) { %>
+            <div class="form-data-entry" style="color: red;"><%= errorMessage %></div>
+         <% } %>
+    </div>
+    
+    <hr/>
+
+    <div class="postbackground">
+    <% if(authors!=null) { %>
+    <% authors.forEach(author =>{ %>
+       <div class="container" id="deleteandupdate">
+           <form action="/authors/delete" method="POST" class="formclass">
+              <input style="visibility: hidden;" type="text" name="author_code" value=<%= author.author_code %>>
+              <div>Author code: <%= author.author_code %></div>
+              <div>Author first name: <%= author.author_fname %></div>
+              <div>Author last name: <%= author.author_lname %></div>
+              <button type="submit">Delete Author</button>
+           </form>
+           <div  class="form-data">
+            <form action="/authors/update" method="POST" class="form-data-entry">
+                <input style="visibility: hidden;" type="text" name="author_code" value=<%= author.author_code %>>
+                <input placeholder="Author first name" type="text" name="new_author_fname" size="17" maxlength="15">
+                <input placeholder="Author last name" type="text" name="new_author_lname" size="17" maxlength="15">
+                <button type="submit">Update Author</button>
+            </form>
+           </div>                              
+       </div>
+       <br>
+    <% }) %>
+    <% } %>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="page">
+<div class="form-data">
+<form action="/members" method="POST" class="form-data-entry">
+   <div>
+       <label>Member id</label>
+       <input type="text" name="member_code" size="5" maxlength="5">
+   </div>
+   <div>
+       <label>Member first name</label>
+       <input type="text" name="member_fname" size="16" maxlength="15">
+   </div>  
+   <div>
+       <label>Member last name</label>
+       <input type="text" name="member_lname" size="16" maxlength="15">
+   </div>   
+   <button type="submit">Create Member</button>    
+</form>
+<form action="/members/search" method="POST" class="form-data-entry">
+    <div>
+        <label>Member id</label>
+        <input type="text" name="member_code" size="5" maxlength="5">
+    </div>        
+    <button type="submit">Search Member</button>
+</form>
+<br>
+</div>
+
+<div class="form-data">
+    <br>
+    <% if(locals.errorMessage != null) { %>
+        <div class="form-data-entry" style="color: red;"><%= errorMessage %></div>
+     <% } %>
+</div>
+
+<hr/>
+
+<div class="postbackground">
+<% if(members!=null) { %>
+<% members.forEach(member => { %>
+<div class="container" id="deleteandupdate">    
+    <form action="/members/deletemember" method="POST" class="formclass">
+        <input style="visibility: hidden;" type="text" name="member_code" value=<%= member.member_code %>>
+        <div>Member code: <%= member.member_code %></div>
+        <div>Member first name: <%= member.member_fname %></div>
+        <div>Member last name: <%= member.member_lname %></div>
+        <button type="submit">Delete member</button>
+        <br>
+    </form>
+    <div  class="form-data">
+        <form action="/members/update" method="POST" class="form-data-entry">
+            <input style="visibility: hidden;" type="text" name="member_code" value=<%= member.member_code %>>
+            <input placeholder="Member first name" type="text" name="new_member_fname" size="16" maxlength="15">
+            <input placeholder="Member last name" type="text" name="new_member_lname" size="16" maxlength="15">
+            <button type="submit">Update Member</button>   
+         </form>
+    </div>
+</div>       
+<% }) %>
+<% } %>
+</div>
+</div>

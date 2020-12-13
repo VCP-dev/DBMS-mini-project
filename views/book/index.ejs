@@ -1,0 +1,79 @@
+<div class="page">
+    <div class="form-data">
+    <form action="/books" method="POST" class="form-data-entry">
+        <div>
+            <label>Category id</label>
+            <input type="text" name="cat_code" size="3" maxlength="2">
+        </div>
+        <div>
+            <label>Book id</label>
+            <input type="text" name="book_code" size="5" maxlength="5">
+        </div>  
+        <div>
+            <label>Author id</label>
+            <input type="text" name="author_code" size="5" maxlength="5">
+        </div>  
+        <div>
+            <label>Book name</label>
+            <input type="text" name="book_name" size="18" maxlength="17">
+        </div> 
+        <div>
+            <label>Publisher</label>
+            <input type="text" name="publisher" size="18" maxlength="17">
+        </div>
+        <div>
+            <label>Language used</label>
+            <input type="text" name="language_used" size="18" maxlength="17">
+        </div> 
+        <button type="submit">Create</button>    
+    </form>
+    <form action="/books/search" method="POST" class="form-data-entry">
+        <div>
+            <label>Book id</label>
+            <input type="text" name="book_code" size="5" maxlength="5">
+        </div>        
+        <button type="submit">Search Book</button>
+    </form>
+    <br>
+    </div>
+
+    <div class="form-data">
+        <br>
+        <% if(locals.errorMessage != null) { %>
+            <div class="form-data-entry" style="color: red;"><%= errorMessage %></div>
+        <% } %>
+    </div>
+
+    <hr/>
+
+    <div class="postbackground">
+    <% if(books!=null) { %>
+    <% books.forEach(book =>{ %>
+       <div class="container" id="deleteandupdate">
+           <form action="/books/delete" method="POST" class="formclass">
+            <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
+            <div>Category code: <%= book.cat_code %></div>
+            <div>Book code: <%= book.book_code %></div>
+            <div>Author code: <%= book.author_code %></div>
+            <div>Book name: <%= book.book_name %></div>
+            <div>Publisher: <%= book.publisher %></div>
+            <div>Languages used: <%= book.language_used %></div>
+            <button type="submit">Delete Book</button>
+           </form>
+           <div  class="form-data">
+            <form action="/books/update" method="POST" class="form-data-entry">
+                <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
+                <input placeholder="Book name" type="text" name="new_book_name" size="18" maxlength="17">
+                <input placeholder="Publisher name" type="text" name="new_publisher" size="18" maxlength="17">
+                <input placeholder="Language used" type="text" name="new_language_used" size="18" maxlength="17">
+                <button type="submit">Update Book</button>   
+             </form>
+           </div>
+           
+       </div>
+       <br>
+    <% }) %>
+    <% } %>
+    </div>
+    
+</div>
