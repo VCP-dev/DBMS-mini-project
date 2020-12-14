@@ -1,20 +1,23 @@
 <div class="page" style="background-color: rgba(1,109,135,1);margin-top: 5em;">
+    
     <div class="form-data">
     <form action="/" method="POST" class="form-data-entry">
+      <div class="container">
+        <div>Librarian log in</div>
+      </div>  
       <div class="container">         
        <div style="margin-top: 1em;">
            <label>Username :</label>
-           <input type="text" name="username" size="15" maxlength="16">
+           <input type="text" name="librarian_username" size="15" maxlength="16">
        </div>
        <div style="margin-top: 1.4em;">
            <label>Password :</label>
-           <input type="password" name="password" size="15" maxlength="16">
+           <input type="password" name="librarian_password" size="15" maxlength="16">
        </div>     
        <button type="submit" style="margin-top: 1.6em;">Login</button>   
-    </div> 
-    </form>
-    <br>
-    </div>
+      </div> 
+    </form>    
+    </div>    
 
     <div class="form-data" style="margin-top:1em;">
         <br>
@@ -22,4 +25,4 @@
             <div class="form-data-entry, container" style="color: red;"><%= errorMessage %></div>
         <% } %>               
     </div>
-</div>    
+</div>

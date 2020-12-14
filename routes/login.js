@@ -15,14 +15,14 @@ router.get('/',(req,res)=>{
 
 // for logging in
 router.post('/',(req,res)=>{
-    if(req.body.username=="" || req.body.password==""){
+    if(req.body.librarian_username=="" || req.body.librarian_password==""){
         res.render("login/index",{
             errorMessage:"Please do not leave fields blank",
             loggedin:false
         })
         return;
     }
-    let mysqlquery = `SELECT * FROM admins WHERE username="${req.body.username}" and password="${req.body.password}"`
+    let mysqlquery = `SELECT * FROM admins WHERE username="${req.body.librarian_username}" and password="${req.body.librarian_password}"`
     mysqlconnection.query(mysqlquery,(err,rows,fields)=>{
         if(rows.length>0){
             let mysqlquery = "SELECT * FROM ledger"
@@ -70,6 +70,7 @@ router.post('/',(req,res)=>{
     })
     
 })
+
 
 
 // ------------------------------- for loading ledger page -------------------------------
