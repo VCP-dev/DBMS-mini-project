@@ -9,6 +9,7 @@ const authormasterrouter = require('./routes/authormaster')
 const bookcategorymasterrouter = require('./routes/bookcategorymaster')
 const ledgerrouter = require('./routes/ledger')
 const membermasterrouter = require('./routes/membermaster')
+const loginrouter = require('./routes/login')
 
 
 var mysqlconnection = require('./mysqlcon')
@@ -29,12 +30,13 @@ app.use(expressLayouts)
 
 
 // routes
-app.use('/',indexrouter)
+//app.use('/',indexrouter)
 app.use('/books',bookmasterrouter)
 app.use('/authors',authormasterrouter)
 app.use('/bookcategories',bookcategorymasterrouter)
 app.use('/ledger',ledgerrouter)
 app.use('/members',membermasterrouter)
+app.use('/',loginrouter)
 
 
 mysqlconnection.connect((err)=>{
