@@ -27,10 +27,24 @@
         </div> 
         <button type="submit">Create</button>    
     </form>
-    <form action="/books/search" method="POST" class="form-data-entry">
+    <form action="/books/searchbybookid" method="POST" class="form-data-entry">
         <div>
             <label>Book id</label>
             <input type="text" name="book_code" size="5" maxlength="5">
+        </div>        
+        <button type="submit">Search Book</button>
+    </form>
+    <form action="/books/searchbycategory" method="POST" class="form-data-entry">
+        <div>
+            <label>Category id</label>
+            <input type="text" name="cat_code" size="3" maxlength="2">
+        </div>        
+        <button type="submit">Search Book</button>
+    </form>
+    <form action="/books/searchbyauthor" method="POST" class="form-data-entry">
+        <div>
+            <label>Author id</label>
+            <input type="text" name="author_code" size="5" maxlength="5">
         </div>        
         <button type="submit">Search Book</button>
     </form>

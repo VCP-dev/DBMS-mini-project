@@ -91,8 +91,8 @@ router.post('/update',(req,res)=>{
 })
 
 
-// get a book
-router.post('/search',(req,res)=>{
+// get books by book id
+router.post('/searchbybookid',(req,res)=>{
     if(req.body.book_code==""){    
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
         return;
@@ -102,7 +102,51 @@ router.post('/search',(req,res)=>{
         if(!err){    
             const params = {
                 books:(rows.length>0)?rows:null,
-                errorMessage:(rows.length>0)?null:"No books with that code"
+                errorMessage:(rows.length>0)?null:"No books with that id"
+            }    
+            res.render("book/index",params)
+        }else{
+            redirecttoindexwitherror(res,err,errmsgtype(err))
+            console.log("ERROR : \n"+JSON.stringify(err,undefined,2)); 
+        } 
+    })
+})
+
+
+// get books by book category
+router.post('/searchbycategory',(req,res)=>{
+    if(req.body.cat_code==""){    
+        redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
+        return;
+    }    
+    let sqlquery = `SELECT * FROM book_master where cat_code="${req.body.cat_code}";`
+    mysqlconnection.query(sqlquery,(err,rows,fields)=>{
+        if(!err){    
+            const params = {
+                books:(rows.length>0)?rows:null,
+                errorMessage:(rows.length>0)?null:"No books with that Category"
+            }    
+            res.render("book/index",params)
+        }else{
+            redirecttoindexwitherror(res,err,errmsgtype(err))
+            console.log("ERROR : \n"+JSON.stringify(err,undefined,2)); 
+        } 
+    })
+})
+
+
+// get books by Author
+router.post('/searchbyauthor',(req,res)=>{
+    if(req.body.author_code==""){    
+        redirecttoindexwitherror(res,new Error(),"Do not leave fields blank")
+        return;
+    }    
+    let sqlquery = `SELECT * FROM book_master where author_code="${req.body.author_code}";`
+    mysqlconnection.query(sqlquery,(err,rows,fields)=>{
+        if(!err){    
+            const params = {
+                books:(rows.length>0)?rows:null,
+                errorMessage:(rows.length>0)?null:"No books written by that Author"
             }    
             res.render("book/index",params)
         }else{
