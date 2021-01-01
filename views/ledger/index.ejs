@@ -61,8 +61,14 @@
          <% } %>
     </div>
 
-    <hr/>
+    <div class="form-data">        
+        <% if(ledgercontent!=null) { %>
+            <div><%=ledgercontent.length%> books which have been lent</div>
+        <% } %>           
+    </div>
 
+    <hr/>
+    
     <div class="postbackground">
     <% if(ledgercontent!=null) { %> 
     <% ledgercontent.forEach(book => { %>

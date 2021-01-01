@@ -31,8 +31,14 @@
             <div class="form-data-entry" style="color: red;"><%= errorMessage %></div>
          <% } %>
     </div>
+
+    <div class="form-data">
+        <% if(authors!=null) { %>
+            <div><%=authors.length%> authors are registered</div>
+        <% } %>    
+    </div>
     
-    <hr/>
+    <hr/>    
 
     <div class="postbackground">
     <% if(authors!=null) { %>

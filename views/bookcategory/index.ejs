@@ -28,8 +28,14 @@
          <% } %>
     </div>
 
-    <hr/>
+    <div class="form-data">
+        <% if(bookcategories!=null) { %>
+            <div><%=bookcategories.length%> categories are registered</div>
+        <% } %>    
+    </div>
 
+    <hr/>
+    
     <div class="postbackground">
     <% if(bookcategories!=null) { %> 
     <% bookcategories.forEach(cat =>{ %>
