@@ -61,9 +61,10 @@
          <% } %>
     </div>
 
-    <div class="form-data">        
-        <% if(ledgercontent!=null) { %>
-            <div><%=ledgercontent.length%> books which have been lent</div>
+    <div class="form-data" style="margin-top: 2em;">        
+        <% if(ledgercontent!=null) { %>                    
+            <div class="counter-text">Issued Books count : </div>
+            <div class="counter"><%=ledgercontent.length%></div>            
         <% } %>           
     </div>
 

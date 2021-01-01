@@ -32,9 +32,10 @@
      <% } %>
 </div>
 
-<div class="form-data">
+<div class="form-data" style="margin-top: 2em;">
     <% if(members!=null) { %>
-        <div><%=members.length%> members are registered</div>
+        <div class="counter-text">Member count : </div>
+        <div class="counter"><%=members.length%></div>
     <% } %>    
 </div>
 
