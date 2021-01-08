@@ -43,7 +43,7 @@ mysqlconnection.connect((err)=>{
     if(err){
         console.log("DB connection failed \n ERROR : "+JSON.stringify(err,undefined,2))
     }else{
-        console.log("DB connection was successfull")
+        console.log("DB connection was successfull")    
     }
 })
 
