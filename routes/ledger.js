@@ -80,7 +80,7 @@ router.post('/search',(req,res)=>{
                             ledgercontent:ledgerrows,
                             books:booklist,
                             members:memberlist,
-                            errorMessage:checknumberofbooksissued(booklist)                                
+                            errorMessage:checknumberofbooksissued(booklist,"No books have been issued to this member")                                
                         }
                         res.render("ledger/index",params)
                     }else{
@@ -94,14 +94,41 @@ router.post('/search',(req,res)=>{
 })
 
 
-// just to check if any books have been issued in a member's name
-const checknumberofbooksissued = (booklist) => {
-    if(booklist.length>0){
-        return null
-    }else{
-        return "No books have been issued to this member"
-    }
-}
+// get all books which are past their due date
+router.post('/dueexpired',(req,res)=>{
+    let memberquery = 'SELECT * FROM member_master'
+    let booklist = null
+    let memberlist = null
+    let sqlquery = `select * from ledger where due_date<curdate();`
+    mysqlconnection.query(sqlquery,(ledgererr,ledgerrows,fields)=>{
+        if(!ledgererr){    
+            booklist = bookformat(ledgerrows) 
+            mysqlconnection.query(memberquery,(err,rows,fields)=>{
+                if(!err){
+                    memberlist = rows    
+                    console.log("ledgercontent:"+JSON.stringify(ledgerrows,undefined,2))
+                    ledgerrows = bookformat(ledgerrows)
+                    const params = {
+                        ledgercontent:ledgerrows,
+                        books:booklist,
+                        members:memberlist,
+                        errorMessage:checknumberofbooksissued(booklist,"No books are overdue")                                
+                    }
+                    res.render("ledger/index",params)
+                }else{
+                    console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
+                }
+            })
+        }else{
+            console.log("ERROR : \n"+JSON.stringify(err,undefined,2));
+        }
+    })
+})
+
+
+// just to check the number of books
+const checknumberofbooksissued = (booklist,message) => (booklist.length>0) ? null:message
+
 
 
 // redirect to index page

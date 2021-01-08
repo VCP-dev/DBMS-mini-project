@@ -37,8 +37,8 @@
         </div>        
         <button type="submit">Issue book</button>    
     </form>
-    <form action="/ledger/search" method="POST" class="form-data-entry">
-        <div>
+    <div class="form-data-entry">
+        <form form action="/ledger/search" method="POST">
             <label>Member name and id</label>
             <!--<input type="text" name="member_code">-->
             <select name="member_code">
@@ -48,9 +48,12 @@
                 <% } %>
 
             </select>
-        </div>        
-        <button type="submit">Search Member</button>
-    </form>
+            <button type="submit">Search Member</button>    
+        </form>    
+        <form action="/ledger/dueexpired" method="POST">            
+            <button type="submit" style="margin-top: 8em;">Get all overdue books</button>    
+        </form>       
+    </div>
     <br>
     </div>
 
