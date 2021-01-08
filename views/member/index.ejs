@@ -48,8 +48,11 @@
     <form action="/members/deletemember" method="POST" class="formclass">
         <input style="visibility: hidden;" type="text" name="member_code" value=<%= member.member_code %>>
         <div>Member code: <%= member.member_code %></div>
+        <hr/>
         <div>Member first name: <%= member.member_fname %></div>
+        <hr/>
         <div>Member last name: <%= member.member_lname %></div>
+        <hr/>
         <button type="submit">Delete member</button>
         <br>
     </form>
@@ -57,7 +60,9 @@
         <form action="/members/update" method="POST" class="form-data-entry">
             <input style="visibility: hidden;" type="text" name="member_code" value=<%= member.member_code %>>
             <input placeholder="Member first name" type="text" name="new_member_fname" size="16" maxlength="15">
+            <hr class="hrupdate"/>
             <input placeholder="Member last name" type="text" name="new_member_lname" size="16" maxlength="15">
+            <hr class="hrupdate"/>
             <button type="submit">Update Member</button>   
          </form>
     </div>

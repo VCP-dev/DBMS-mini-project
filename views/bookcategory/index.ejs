@@ -35,7 +35,7 @@
         <% } %>    
     </div>
 
-    <hr/>
+    <hr class="hrpage"/>
     
     <div class="postbackground">
     <% if(bookcategories!=null) { %> 
@@ -44,12 +44,15 @@
         <form action="/bookcategories/deletecategory" method="POST" class="formclass">
             <input style="visibility: hidden;" type="text" name="cat_code" value=<%= cat.cat_code %>>
             <div>Category code: <%= cat.cat_code %></div>
+            <hr/>
             <div>Category name: <%= cat.cat_type %></div>
-            <button type="submit">Delete Category</button>            
+            <hr/>
+            <button type="submit">Delete Category</button>                   
         </form>    
         <form action="/bookcategories/update" method="POST"  class="form-data-entry">
             <input style="visibility: hidden;" type="text" name="cat_code" value=<%= cat.cat_code %>>
             <input placeholder="Category type" type="text" name="new_cat_type" size="21" maxlength="20">
+            <hr class="hrupdate"/>
             <button type="submit">Update Category</button>            
         </form>    
     </div>  

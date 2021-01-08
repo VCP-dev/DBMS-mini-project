@@ -79,19 +79,28 @@
            <form action="/books/delete" method="POST" class="formclass">
             <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
             <div>Category code: <%= book.cat_code %></div>
+            <hr/>
             <div>Book code: <%= book.book_code %></div>
+            <hr/>
             <div>Author code: <%= book.author_code %></div>
+            <hr/>
             <div>Book name: <%= book.book_name %></div>
+            <hr/>
             <div>Publisher: <%= book.publisher %></div>
+            <hr/>
             <div>Languages used: <%= book.language_used %></div>
+            <hr/>
             <button type="submit">Delete Book</button>
            </form>
            <div  class="form-data">
             <form action="/books/update" method="POST" class="form-data-entry">
                 <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
                 <input placeholder="Book name" type="text" name="new_book_name" size="18" maxlength="17">
+                <hr class="hrupdate"/>
                 <input placeholder="Publisher name" type="text" name="new_publisher" size="18" maxlength="17">
+                <hr class="hrupdate"/>
                 <input placeholder="Language used" type="text" name="new_language_used" size="18" maxlength="17">
+                <hr class="hrupdate"/>
                 <button type="submit">Update Book</button>   
              </form>
            </div>

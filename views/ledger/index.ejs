@@ -77,9 +77,13 @@
         <form action="/ledger/delete" method="POST" class="formclass">
             <input style="visibility: hidden;" type="text" name="book_code" value=<%= book.book_code %>>
             <div>Book code: <%= book.book_code %> </div>
+            <hr/>
             <div>Member code: <%= book.member_code %> </div>
+            <hr/>
             <div>Issue date: <%= book.issue_date %> </div>
+            <hr/>
             <div>Due date: <%= book.due_date %> </div>
+            <hr/>
             <!--<div>Return date: <%= book.ret_date %> </div>-->
             <button type="submit">Return book</button>
         </form>  
@@ -93,7 +97,7 @@
                     <div style="color: red;font-size: 23px;">Overdue to be returned !!!</div>
                 <% } else { %>
                     <div style="font-size: 18px;">Not returned yet...</div>
-                <% } %>        
+                <% } %>                   
             </div>           
         </div>      
         <br>

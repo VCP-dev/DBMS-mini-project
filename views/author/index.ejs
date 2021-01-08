@@ -47,16 +47,21 @@
        <div class="container" id="deleteandupdate">
            <form action="/authors/delete" method="POST" class="formclass">
               <input style="visibility: hidden;" type="text" name="author_code" value=<%= author.author_code %>>
-              <div>Author code: <%= author.author_code %></div>
+              <div>Author code: <%= author.author_code %></div>       
+              <hr/>       
               <div>Author first name: <%= author.author_fname %></div>
+              <hr/>
               <div>Author last name: <%= author.author_lname %></div>
+              <hr/>
               <button type="submit">Delete Author</button>
            </form>
            <div  class="form-data">
             <form action="/authors/update" method="POST" class="form-data-entry">
                 <input style="visibility: hidden;" type="text" name="author_code" value=<%= author.author_code %>>
                 <input placeholder="Author first name" type="text" name="new_author_fname" size="17" maxlength="15">
+                <hr class="hrupdate"/>
                 <input placeholder="Author last name" type="text" name="new_author_lname" size="17" maxlength="15">
+                <hr class="hrupdate"/>
                 <button type="submit">Update Author</button>
             </form>
            </div>                              
