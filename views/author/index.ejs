@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-data"  style="margin-top: 2em;">
-        <% if(authors!=null) { %>
+        <% if(authors!=null && locals.errorMessage == null) { %>
             <div class="counter-text">Author count : </div>
             <div class="counter"><%=authors.length%></div>
         <% } %>    

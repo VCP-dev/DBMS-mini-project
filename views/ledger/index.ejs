@@ -65,7 +65,7 @@
     </div>
 
     <div class="form-data" style="margin-top: 2em;">        
-        <% if(ledgercontent!=null) { %>                    
+        <% if(ledgercontent!=null && locals.errorMessage == null) { %>                    
             <div class="counter-text">Issued Books count : </div>
             <div class="counter"><%=ledgercontent.length%></div>            
         <% } %>           

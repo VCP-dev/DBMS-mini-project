@@ -64,7 +64,7 @@
     </div>
 
     <div class="form-data" style="margin-top: 2em;">
-        <% if(books!=null) { %>
+        <% if(books!=null && locals.errorMessage == null) { %>
             <div class="counter-text">Book count : </div>
             <div class="counter"><%=books.length%></div>
         <% } %>    

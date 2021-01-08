@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-data"  style="margin-top: 2em;">
-        <% if(bookcategories!=null) { %>
+        <% if(bookcategories!=null && locals.errorMessage == null) { %>
             <div class="counter-text">Category count : </div>
             <div class="counter"><%=bookcategories.length%></div>
         <% } %>    
