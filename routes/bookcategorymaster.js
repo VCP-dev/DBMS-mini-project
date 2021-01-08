@@ -15,7 +15,7 @@ router.post('/',(req,res)=>{
         redirecttoindexwitherror(res,new Error(),"Do not leave fields blank") 
         return;
     }    
-    mysqlconnection.query(`INSERT INTO book_category_master VALUES("${req.body.cat_code}","${req.body.cat_type}")`,(err,rows,fields)=>{    
+    mysqlconnection.query(`INSERT INTO book_category_master VALUES("${req.body.cat_code}","${req.body.cat_type}")`,(err,rows,fields)=>{   
         if(!err){
             console.log(`Inserted new category ${req.body.cat_type}`)    
             redirecttoindex(res)
